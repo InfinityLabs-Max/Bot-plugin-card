@@ -38,7 +38,7 @@ CURRENTLY RUNNING ON BETA VERSION!!
 **/
 
 const { smd, prefix, Config, sleep } = require('../lib');
-const { generateCardList } = require('../plugins/cardGenerator'); // Ensure correct path
+const { generateCardList } = require('../plugins/card'); // Ensure correct path
 
 smd({
     pattern: "card",
