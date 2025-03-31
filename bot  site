@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infinity Lab</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base Styles */
+    :root {
+      --primary-color: #ff6a00;
+      --secondary-color: #00bcd4;
+      --accent-color: #8e24aa;
+      --error-color: #f44336;
+      --text-color: #fff;
+      --bg-dark: rgba(0, 0, 0, 0.7);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(45deg, #ff6a00, #ffcc00, #00bcd4, #4caf50, #8e24aa, #f44336);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Container Styles */
+    .container {
+      text-align: center;
+      padding: 30px;
+      border-radius: 15px;
+      background-color: var(--bg-dark);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      width: 100%;
+      max-width: 800px;
+      transition: var(--transition);
+      margin: 20px 0;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Typography */
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #ff6a00, #ffcc00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--secondary-color);
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+
+    p, li {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    /* Button Styles */
+    .button {
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      border: 2px solid var(--text-color);
+      border-radius: 30px;
+      background: transparent;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: var(--transition);
+      margin: 10px 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 150px;
+    }
+
+    .button i {
+      margin-right: 8px;
+    }
+
+    .button:hover {
+      background-color: var(--text-color);
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .button-primary {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .button-primary:hover {
+      background-color: var(--primary-color);
+      color: var(--text-color);
+    }
+
+    .button-secondary {
+      border-color: var(--secondary-color);
+      color: var(--secondary-color);
+    }
+
+    .button-secondary:hover {
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+
+    .button-accent {
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+
+    .button-accent:hover {
+      background-color: var(--accent-color);
+      color: var(--text-color);
+    }
+
+    /* Form Styles */
+    input[type="text"], 
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--text-color);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    input[type="text"]:focus, 
+    input[type="password"]:focus {
+      border-color: var(--secondary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.3);
+    }
+
+    /* Layout Components */
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin: 25px 0;
+    }
+
+    .divider {
+      height: 2px;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+      margin: 20px 0;
+    }
+
+    /* Category Cards */
+    .category {
+      margin: 20px 0;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      border-left: 4px solid var(--primary-color);
+      transition: var(--transition);
+    }
+
+    .category:hover {
+      transform: translateX(5px);
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .category h3 i {
+      margin-right: 10px;
+    }
+
+    .category ul {
+      list-style-position: inside;
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    .category ol {
+      text-align: left;
+      padding-left: 30px;
+    }
+
+    /* Link Styles */
+    a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    a:hover {
+      color: var(--primary-color);
+      text-decoration: underline;
+    }
+
+    /* Error Message */
+    .error-message {
+      color: var(--error-color);
+      margin: 15px 0;
+      padding: 10px;
+      background-color: rgba(244, 67, 54, 0.1);
+      border-radius: 5px;
+      display: none;
+    }
+
+    /* Back Button */
+    .back-button {
+      margin-top: 30px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      .button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        min-width: 120px;
+      }
+      
+      .container {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .button-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .button {
+        width: 100%;
+      }
+    }
+
+    /* Utility Classes */
+    .text-center {
+      text-align: center;
+    }
+    
+    .mb-20 {
+      margin-bottom: 20px;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Main Page -->
+  <div class="container" id="mainContainer">
+    <h1><i class="fas fa-infinity"></i> Infinity Lab</h1>
+    <p class="mb-20">Your premium resource for digital tools and services</p>
+    <div class="button-group">
+      <button class="button button-primary" onclick="showLogin()">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </button>
+      <button class="button button-accent" onclick="showSignUp()">
+        <i class="fas fa-user-plus"></i> Sign Up
+      </button>
+    </div>
+  </div>
+
+  <!-- Login Form -->
+  <div class="container hidden" id="loginForm">
+    <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+    <form onsubmit="handleLogin(event)">
+      <input type="text" id="loginUsername" placeholder="Username" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <div class="button-group">
+        <button type="submit" class="button button-primary">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <button type="button" class="button" onclick="backToMain()">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+      </div>
+    </form>
+    <p class="error-message" id="loginError">
+      <i class="fas fa-exclamation-circle"></i> Incorrect username or password.
+    </p>
+  </div>
+
+  <!-- Sign Up Form -->
+  <div class="container hidden" id="signUpForm">
+    <h2><i class="fas fa-user-plus"></i> Sign Up</h2>
+    <p>Contact us to create your account</p>
+    <div class="button-group">
+      <a href="https://wa.me/xxxxxxxxxx" target="_blank" class="button button-secondary">
+        <i class="fab fa-whatsapp"></i> WhatsApp Signup
+      </a>
+      <button class="button" onclick="backToMain()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="container hidden" id="dashboard">
+    <h2>Welcome, <span id="usernameDisplay"></span>!</h2>
+    <p>Select an option below:</p>
+    
+    <div class="button-group">
+      <button class="button button-primary" onclick="showCreditCards()">
+        <i class="fas fa-credit-card"></i> Credit Cards
+      </button>
+      <button class="button button-secondary" id="premiumAppsBtn" onclick="showPremiumApps()">
+        <i class="fas fa-crown"></i> Premium Apps
+      </button>
+      <button class="button" id="toolsBtn" onclick="showTools()">
+        <i class="fas fa-tools"></i> Tools
+      </button>
+      <button class="button button-accent" id="tiktokBtn" onclick="showTikTok()">
+        <i class="fab fa-tiktok"></i> TikTok Views
+      </button>
+    </div>
+    
+    <button class="button back-button" onclick="logout()">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+  </div>
+
+  <!-- Credit Cards Section -->
+  <div class="container hidden" id="creditCards">
+    <h2><i class="fas fa-credit-card"></i> Credit Cards</h2>
+    <p class="mb-20">Last updated: <span id="updateDate">March 4, 2025</span></p>
+    
+    <div class="category">
+      <h3><i class="fas fa-list-ol"></i> Available Cards</h3>
+      <div class="divider"></div>
+      <ul id="cardList">
+        <li>5109427964449866 | 06/2029 | CVV: 173</li>
+        <li>5109420529216540 | 11/2027 | CVV: 956</li>
+        <li>5109427131982286 | 12/2028 | CVV: 377</li>
+        <li>5109426578121333 | 08/2031 | CVV: 383</li>
+        <li>5109427746689284 | 08/2032 | CVV: 815</li>
+        <li>5109420814300819 | 12/2030 | CVV: 760</li>
+        <li>5109422365955942 | 02/2028 | CVV: 827</li>
+        <li>5109426054059601 | 10/2032 | CVV: 293</li>
+        <li>5109429006750723 | 08/2031 | CVV: 876</li>
+        <li>5109426431802053 | 10/2031 | CVV: 316</li>
+      </ul>
+    </div>
+    
+    <button class="button back-button" onclick="backToDashboard()">
+      <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </button>
+  </div>
+
+  <!-- Premium Apps Section -->
+  <div class="container hidden" id="premiumApps">
+    <h2><i class="fas fa-crown"></i> Premium Apps</h2>
+    
+    <div class="category">
+      <h3><i class="fas fa-music"></i> YouTube Music Premium</h3>
+      <div class="divider"></div>
+      <p><strong>Premium Features:</strong></p>
+      <ul>
+        <li>Background play</li>
+        <li>Ad-free experience</li>
+        <li>Download for offline listening</li>
+      </ul>
+      <div class="divider"></div>
+      <p><strong>Installation Guide:</strong></p>
+      <ol>
+        <li>Install MicroG first</li>
+        <li>Then install YouTube ReVanced</li>
+        <li>Login with your Google account</li>
+        <li>Enjoy premium features!</li>
+      </ol>
+      <div class="divider"></div>
+      <a href="https://mega.nz/folder/l6dxSQIK#LYdJBVHkTNtvK6SVWOzN8g" target="_blank" class="button button-secondary">
+        <i class="fas fa-download"></i> Download Now
+      </a>
+    </div>
+    
+    <div class="category">
+      <h3><i class="fas fa-film"></i> Movie Hub Premium</h3>
+      <div class="divider"></div>
+      <ul>
+        <li>Fully Premium Unlocked</li>
+        <li>All Ads Removed</li>
+        <li>Login Bypass</li>
+        <li>4K Streaming</li>
+      </ul>
+      <div class="divider"></div>
+      <a href="https://mega.nz/file/9jlR3B6A#2048t3q2dUL8lnIPv5VEa9broH3qv-kIzvPFl8mbMnM" target="_blank" class="button button-secondary">
+        <i class="fas fa-download"></i> Download Now
+      </a>
+    </div>
+    
+    <button class="button back-button" onclick="backToDashboard()">
+      <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </button>
+  </div>
+
+  <!-- TikTok Section -->
+  <div class="container hidden" id="tiktok">
+    <h2><i class="fab fa-tiktok"></i> TikTok Views</h2>
+    <p>Use the service below to boost your TikTok views:</p>
+    
+    <div class="category">
+      <iframe src="https://zefoy.com" width="100%" height="500px" style="border:none; border-radius:8px;"></iframe>
+    </div>
+    
+    <button class="button back-button" onclick="backToDashboard()">
+      <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </button>
+  </div>
+
+  <!-- Tools Section -->
+  <div class="container hidden" id="tools">
+    <h2><i class="fas fa-tools"></i> Developer Tools</h2>
+    
+    <div class="category">
+      <h3><i class="fab fa-github"></i> GitHub Resources</h3>
+      <div class="divider"></div>
+      <ul>
+        <li><a href="https://github.com" target="_blank">GitHub Main</a> - Code hosting platform</li>
+        <li><a href="https://github.com/features" target="_blank">GitHub Features</a> - Explore GitHub features</li>
+        <li><a href="https://github.com/trending" target="_blank">Trending Repos</a> - See what's trending</li>
+      </ul>
+    </div>
+    
+    <div class="category">
+      <h3><i class="fas fa-code"></i> Development Tools</h3>
+      <div class="divider"></div>
+      <ul>
+        <li><a href="https://codepen.io" target="_blank">CodePen</a> - Front-end development playground</li>
+        <li><a href="https://jsfiddle.net" target="_blank">JSFiddle</a> - JavaScript testing tool</li>
+        <li><a href="https://stackoverflow.com" target="_blank">Stack Overflow</a> - Developer Q&A</li>
+      </ul>
+    </div>
+    
+    <button class="button back-button" onclick="backToDashboard()">
+      <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </button>
+  </div>
+
+  <script>
+    // User database with roles
+    const users = {
+      admin: { 
+        username: 'admin', 
+        password: 'admin123', 
+        role: 'admin',
+        name: 'Administrator'
+      },
+      user: { 
+        username: 'user', 
+        password: 'user123', 
+        role: 'normal',
+        name: 'Standard User'
+      },
+      paid: { 
+        username: 'paid', 
+        password: 'paid123', 
+        role: 'paid',
+        name: 'Premium User'
+      }
+    };
+
+    let currentUser = null;
+
+    // DOM Elements
+    const mainContainer = document.getElementById('mainContainer');
+    const loginForm = document.getElementById('loginForm');
+    const signUpForm = document.getElementById('signUpForm');
+    const dashboard = document.getElementById('dashboard');
+    const creditCards = document.getElementById('creditCards');
+    const premiumApps = document.getElementById('premiumApps');
+    const tiktok = document.getElementById('tiktok');
+    const tools = document.getElementById('tools');
+    const loginError = document.getElementById('loginError');
+    const usernameDisplay = document.getElementById('usernameDisplay');
+    const premiumAppsBtn = document.getElementById('premiumAppsBtn');
+    const toolsBtn = document.getElementById('toolsBtn');
+    const tiktokBtn = document.getElementById('tiktokBtn');
+
+    // Navigation Functions
+    function showLogin() {
+      hideAll();
+      loginForm.classList.remove('hidden');
+    }
+
+    function showSignUp() {
+      hideAll();
+      signUpForm.classList.remove('hidden');
+    }
+
+    function backToMain() {
+      hideAll();
+      mainContainer.classList.remove('hidden');
+      loginError.style.display = 'none';
+    }
+
+    function backToDashboard() {
+      hideAll();
+      dashboard.classList.remove('hidden');
+    }
+
+    function logout() {
+      currentUser = null;
+      backToMain();
+    }
+
+    // Content Display Functions
+    function showCreditCards() {
+      hideAll();
+      creditCards.classList.remove('hidden');
+    }
+
+    function showPremiumApps() {
+      if (currentUser && (currentUser.role === 'paid' || currentUser.role === 'admin')) {
+        hideAll();
+        premiumApps.classList.remove('hidden');
+      } else {
+        alert('⚠️ Premium access required. Please upgrade your account.');
+      }
+    }
+
+    function showTools() {
+      if (currentUser && currentUser.role === 'admin') {
+        hideAll();
+        tools.classList.remove('hidden');
+      } else {
+        alert('🔒 Admin access required. You do not have permission to view this section.');
+      }
+    }
+
+    function showTikTok() {
+      if (currentUser && currentUser.role === 'admin') {
+        hideAll();
+        tiktok.classList.remove('hidden');
+      } else {
+        alert('🔒 Admin access required. You do not have permission to view this section.');
+      }
+    }
+
+    // Helper Functions
+    function hideAll() {
+      document.querySelectorAll('.container').forEach(el => {
+        el.classList.add('hidden');
+      });
+    }
+
+    function updateUIForUser() {
+      if (!currentUser) return;
+      
+      usernameDisplay.textContent = currentUser.name;
+      
+      // Show/hide buttons based on user role
+      premiumAppsBtn.style.display = (currentUser.role === 'paid' || currentUser.role === 'admin') ? '' : 'none';
+      toolsBtn.style.display = currentUser.role === 'admin' ? '' : 'none';
+      tiktokBtn.style.display = currentUser.role === 'admin' ? '' : 'none';
+    }
+
+    // Login Handler
+    function handleLogin(event) {
+      event.preventDefault();
+      
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      
+      // Check credentials
+      if (users[username] && users[username].password === password) {
+        currentUser = users[username];
+        hideAll();
+        dashboard.classList.remove('hidden');
+        updateUIForUser();
+      } else {
+        loginError.style.display = 'block';
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set current date for credit cards
+      document.getElementById('updateDate').textContent = new Date().toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    });
+  </script>
+</body>
+</html>
